@@ -18,11 +18,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         initComponents();
         this.mostrarDatosFactura();
         this.mostrarDatosDetalle(3, 0);
-        
     }
     
     int ID, varGlobalOpcion;
-    String cuit, producto, cantidad, nombre, apellido;
+    String varLocalCuit, varLocalProducto, varLocalCantidad, varLocalNombre, varLocalApellido;
 
     
     @SuppressWarnings("unchecked")
@@ -381,12 +380,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         varGlobalOpcion=3;
-        cuit=(txtCuit.getText());
-        nombre=(txtNombre.getText());
-        apellido=(txtApellido.getText());
+        varLocalCuit=(txtCuit.getText());
+        varLocalNombre=(txtNombre.getText());
+        varLocalApellido=(txtApellido.getText());
         
         Factura objDatos=recuperarDatosFactura();
-        objDatos.botonAgregar(1,cuit, "", 0, 0 , nombre, apellido); //(producto, cantidad, id)
+        objDatos.botonAgregar(1,varLocalCuit, "", 0, 0 , varLocalNombre, varLocalApellido); //(producto, cantidad, id)
+        
+        
+        int idFactura =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
+        Factura oDatos = new Factura(idFactura,varGlobalOpcion);
         
         this.mostrarDatosFactura();
         this.mostrarDatosDetalle(3,0);
@@ -406,12 +409,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnAgregarDetalleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarDetalleActionPerformed
         
         Factura objDatos=recuperarDatosFacturaDetalle();// Factura objDatos = new Factura();
-        producto = (txtProducto.getText());
-        cantidad = (txtCantidad.getText());
+        varLocalProducto = (txtProducto.getText());
+        varLocalCantidad = (txtCantidad.getText());
         
         int idFactura =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
             
-        objDatos.botonAgregar(3, "" ,producto , Integer.parseInt(cantidad) , idFactura, "", "" ); //(producto, cantidad, id)
+        objDatos.botonAgregar(3, "" ,varLocalProducto , Integer.parseInt(varLocalCantidad) , idFactura, "", "" ); //(producto, cantidad, id)
         
         this.mostrarDatosDetalle(varGlobalOpcion, idFactura);
         this.limpiarDetalle();
@@ -456,6 +459,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
        Factura objDatos=recuperarDatosFactura();
         objDatos.Editar(Integer.parseInt(txtId1.getText()),txtCuit.getText(), txtNombre.getText(), txtApellido.getText(), 0, "", 0,1);
+        
+        
+        int idFactura =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
+        Factura oDatos = new Factura(idFactura,varGlobalOpcion);
         
         this.mostrarDatosFactura();
         this.limpiar();
@@ -556,6 +563,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
    public void limpiar(){
        txtId1.setText("");
        txtCuit.setText("");
+       txtNombre.setText("");
+       txtApellido.setText("");
        
        btnAgregar.setEnabled(true);
        btnBorrar.setEnabled(false);

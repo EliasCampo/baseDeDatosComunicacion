@@ -14,24 +14,68 @@ import java.sql.ResultSet;
 
 public class Factura {
     int id, cantidad;
-    String cuit, producto, nombre, apellido;
+    String varLocalCuit, varLocalProducto, varLocalNombre, varLocalApellido;
+    static DefaultTableModel varLocalTabDetalle;
 
+    public Factura() {
+    }
+
+    public Factura(int id, int opcion){
+        this.setearParametros(id, opcion);
+        this.setearParametrosDetalle(id, opcion);
+    }
+    
+    
+    
+    
+    public String getVarLocalCuit() {
+        return varLocalCuit;
+    }
+
+    public void setVarLocalCuit(String varLocalCuit) {
+        this.varLocalCuit = varLocalCuit;
+    }
+
+    public String getVarLocalProducto() {
+        return varLocalProducto;
+    }
+
+    public void setVarLocalProducto(String varLocalProducto) {
+        this.varLocalProducto = varLocalProducto;
+    }
+
+    public String getVarLocalNombre() {
+        return varLocalNombre;
+    }
+
+    public void setVarLocalNombre(String varLocalNombre) {
+        this.varLocalNombre = varLocalNombre;
+    }
+
+    public String getVarLocalApellido() {
+        return varLocalApellido;
+    }
+
+    public void setVarLocalApellido(String varLocalApellido) {
+        this.varLocalApellido = varLocalApellido;
+    }
+
+    
     public String getNombre() {
-        return nombre;
+        return varLocalNombre;
     }
 
     public void setNombre(String nombre) {
-        this.nombre = nombre;
+        this.varLocalNombre = nombre;
     }
 
     public String getApellido() {
-        return apellido;
+        return varLocalApellido;
     }
 
     public void setApellido(String apellido) {
-        this.apellido = apellido;
+        this.varLocalApellido = apellido;
     }
-    
     
     public int getId() {
         return id;
@@ -46,21 +90,173 @@ public class Factura {
     }
 
     public String getProducto() {
-        return producto;
+        return varLocalProducto;
     }
 
     public void setProducto(String producto) {
-        this.producto = producto;
+        this.varLocalProducto = producto;
     }
 
-
     public String getCuit() {
-        return cuit;
+        return varLocalCuit;
     }
 
     public void setCuit(String cuit) {
-        this.cuit = cuit;
+        this.varLocalCuit = cuit;
     }
+    
+    
+    
+    public void setearParametros(int Id, int opcion){  
+        ConexionBase objConexionBase= new ConexionBase();
+        String[] titulos ={"id", "cuit", "nombre", "apellido"};
+        DefaultTableModel modelo2 = new DefaultTableModel(null, titulos);
+
+        
+        switch(opcion){
+            case 2:
+                while(modelo2.getRowCount()>0){
+                   modelo2.removeRow(0); // ej cunado borre un dato no se dupliquen las celdas (limpiar o borrar las filas en la interfaz)
+                }
+                    
+                try {
+                    ResultSet resultado= objConexionBase.consultarRegistros("SELECT * FROM FacturaDetalle WHERE id LIKE '%"+Id+"%'"); 
+
+                    while (resultado.next()) {
+
+                        Object[] oUsuario={ resultado.getString("id"),
+                                            resultado.getString("cuit"),
+                                            resultado.getString("nombre"),
+                                            resultado.getString("apellido")};
+                                           
+                        modelo2.addRow(oUsuario);
+                        
+                        this.setCuit(oUsuario[1].toString());
+                        this.setVarLocalNombre(oUsuario[2].toString());
+                        this.setVarLocalApellido(oUsuario[3].toString());
+
+                    }
+                    
+                }catch (Exception e){
+                    System.out.println(e);
+                    
+               }
+                break;
+                case 3:
+                    
+                while(modelo2.getRowCount()>0){
+                   modelo2.removeRow(0); // ej cunado borre un dato no se dupliquen las celdas (limpiar o borrar las filas en la interfaz)
+                }
+                    
+                try {
+                    int UltimoIdFactura =  objConexionBase.buscarUltimoId();
+                    ResultSet resultado= objConexionBase.consultarRegistros("SELECT * FROM FacturaDetalle WHERE id LIKE '%"+UltimoIdFactura+"%'"); 
+                     
+
+                    while (resultado.next()) {
+
+                        Object[] oUsuario={ resultado.getString("id"),
+                                            resultado.getString("cuit"),
+                                            resultado.getString("nombre"),
+                                            resultado.getString("apellido")};
+                                           
+                        modelo2.addRow(oUsuario);
+                        
+                        this.setCuit(oUsuario[1].toString());
+                        this.setVarLocalNombre(oUsuario[2].toString());
+                        this.setVarLocalApellido(oUsuario[3].toString());
+
+                    }
+                    
+                }catch (Exception e){
+                    System.out.println(e);
+                    
+               }
+                break;
+        }
+                
+       }
+    
+    
+    
+    public void setearParametrosDetalle(int Id, int opcion){  
+        ConexionBase objConexionBase= new ConexionBase();
+        
+
+        
+        switch(opcion){
+            
+            case 2:
+                String[] titulos ={"idProducto", "idFactura", "producto", "cantidad"};
+                DefaultTableModel modelo2 = new DefaultTableModel(null, titulos);
+                while(modelo2.getRowCount()>0){
+                   modelo2.removeRow(0); // ej cunado borre un dato no se dupliquen las celdas (limpiar o borrar las filas en la interfaz)
+                }
+                    
+                try {
+                    ResultSet resultado= objConexionBase.consultarRegistros("SELECT * FROM FacturaDetalle WHERE idFactura LIKE '%"+Id+"%'"); 
+
+                    while (resultado.next()) {
+
+                        Object[] oUsuario={ resultado.getString("idProducto"),
+                                            resultado.getString("idFactura"),
+                                            resultado.getString("producto"),
+                                            resultado.getString("cantidad")};
+                                           
+                        modelo2.addRow(oUsuario);
+                        
+                        setCuit(oUsuario[1].toString());
+                        setVarLocalNombre(oUsuario[2].toString());
+                        setVarLocalApellido(oUsuario[3].toString());
+
+                    }
+                    
+                }catch (Exception e){
+                    System.out.println(e);
+                    
+               }
+                break;
+                case 3:
+                    String[] titulos2 ={"idProducto", "idFactura", "producto", "cantidad"};
+                    DefaultTableModel modelo3 = new DefaultTableModel(null, titulos2);
+                while(modelo3.getRowCount()>0){
+                   modelo3.removeRow(0); // ej cunado borre un dato no se dupliquen las celdas (limpiar o borrar las filas en la interfaz)
+                }
+                    
+                try {
+                    int UltimoIdFactura =  objConexionBase.buscarUltimoId();
+                    ResultSet resultado= objConexionBase.consultarRegistros("SELECT * FROM FacturaDetalle WHERE idFactura LIKE '%"+UltimoIdFactura+"%'"); 
+                     
+
+                    while (resultado.next()) {
+
+                        Object[] oUsuario={ resultado.getString("idProducto"),
+                                            resultado.getString("idFactura"),
+                                            resultado.getString("producto"),
+                                            resultado.getString("cantidad")};
+                                           
+                        modelo3.addRow(oUsuario);
+                        
+                        setCuit(oUsuario[1].toString());
+                        setVarLocalNombre(oUsuario[2].toString());
+                        setVarLocalApellido(oUsuario[3].toString());
+
+                    }
+                    
+                }catch (Exception e){
+                    System.out.println(e);
+                    
+               }
+                break;
+        }
+                
+       }
+    
+    
+    
+    
+    
+    
     
     
     
