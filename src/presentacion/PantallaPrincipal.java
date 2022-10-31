@@ -22,7 +22,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     }
     
     int ID, varGlobalOpcion;
-    String cuit, producto, cantidad;
+    String cuit, producto, cantidad, nombre, apellido;
 
     
     @SuppressWarnings("unchecked")
@@ -58,6 +58,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnCancelar = new javax.swing.JButton();
         btnCancelarDetalle = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        txtNombre = new javax.swing.JTextField();
+        txtApellido = new javax.swing.JTextField();
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -189,6 +193,16 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             }
         });
 
+        jLabel7.setText("Nombre");
+
+        jLabel8.setText("Apellido");
+
+        txtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtNombreActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -249,16 +263,21 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnCancelarDetalle))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(id, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(id, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 45, Short.MAX_VALUE))
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -270,22 +289,27 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel6)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(124, 124, 124)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(btnBorrar)
-                                    .addComponent(btnEditar)
-                                    .addComponent(btnAgregar)
-                                    .addComponent(btnCancelar)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(id)
-                                    .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel2)
-                                    .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(id)
+                            .addComponent(txtId1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel2)
+                            .addComponent(txtCuit, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel7)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel8)
+                            .addComponent(txtApellido, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnBorrar)
+                            .addComponent(btnEditar)
+                            .addComponent(btnAgregar)
+                            .addComponent(btnCancelar))))
                 .addGap(18, 18, 18)
                 .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(2, 2, 2)
@@ -307,7 +331,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 186, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnAgregarDetalle)
                     .addComponent(btnEditarDetalle)
@@ -327,12 +351,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     // hacemos clik en la tabla y nos carga todo en los cuadraditos del costado en el menu     
     private void tablaFactMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tablaFactMouseClicked
         varGlobalOpcion=2;
-        
-        JTable tabla=(JTable)evt.getSource(); 
-        int idFactura = Integer.parseInt(tabla.getModel().getValueAt(tabla.getSelectedRow(),0).toString());
-        
-        this.mostrarDatosDetalle(2,idFactura );
-        
+ 
         if(evt.getClickCount()==1){
             
             JTable receptor=(JTable)evt.getSource(); 
@@ -340,11 +359,19 @@ public class PantallaPrincipal extends javax.swing.JFrame {
             try{
                 txtId1.setText(receptor.getModel().getValueAt (receptor.getSelectedRow(),0).toString());
                 txtCuit.setText(receptor.getModel().getValueAt (receptor.getSelectedRow(),1).toString());
+                txtNombre.setText(receptor.getModel().getValueAt (receptor.getSelectedRow(),2).toString());
+                txtApellido.setText(receptor.getModel().getValueAt (receptor.getSelectedRow(),3).toString());
             }
             catch (Exception ex) {
                 System.out.println(ex);
             }
+         
+        int idFactura = Integer.parseInt(txtId1.getText());
+        
+        this.mostrarDatosDetalle(2,idFactura );
         }
+        
+        
         btnAgregar.setEnabled(false);
         btnEditar.setEnabled(true);
         btnBorrar.setEnabled(true); 
@@ -355,9 +382,11 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         varGlobalOpcion=3;
         cuit=(txtCuit.getText());
+        nombre=(txtNombre.getText());
+        apellido=(txtApellido.getText());
         
         Factura objDatos=recuperarDatosFactura();
-        objDatos.botonAgregar(1,cuit, "", 0, 0 ); //(producto, cantidad, id)
+        objDatos.botonAgregar(1,cuit, "", 0, 0 , nombre, apellido); //(producto, cantidad, id)
         
         this.mostrarDatosFactura();
         this.mostrarDatosDetalle(3,0);
@@ -382,7 +411,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
         int idFactura =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
             
-        objDatos.botonAgregar(3, "" ,producto , Integer.parseInt(cantidad) , idFactura ); //(producto, cantidad, id)
+        objDatos.botonAgregar(3, "" ,producto , Integer.parseInt(cantidad) , idFactura, "", "" ); //(producto, cantidad, id)
         
         this.mostrarDatosDetalle(varGlobalOpcion, idFactura);
         this.limpiarDetalle();
@@ -426,7 +455,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
 
     private void btnEditarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnEditarMouseClicked
        Factura objDatos=recuperarDatosFactura();
-        objDatos.Editar(Integer.parseInt(txtId1.getText()),txtCuit.getText(), 0, "", 0,1);
+        objDatos.Editar(Integer.parseInt(txtId1.getText()),txtCuit.getText(), txtNombre.getText(), txtApellido.getText(), 0, "", 0,1);
         
         this.mostrarDatosFactura();
         this.limpiar();
@@ -437,7 +466,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
          Factura objDatos=recuperarDatosFacturaDetalle();
          int idFactura =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
          
-        objDatos.Editar(0, "" ,Integer.parseInt(txtIdProducto.getText()),txtProducto.getText() , Integer.parseInt(txtCantidad.getText()), 2);
+        objDatos.Editar(0, "", "", "" ,Integer.parseInt(txtIdProducto.getText()),txtProducto.getText() , Integer.parseInt(txtCantidad.getText()), 2);
         
         this.mostrarDatosDetalle(2, idFactura);
         this.limpiarDetalle();
@@ -470,6 +499,10 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCancelarDetalleActionPerformed
 
+    private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtNombreActionPerformed
+
 
     public void mostrarDatosFactura(){
         Factura objDatos = new Factura();
@@ -498,6 +531,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
        int ID =(txtId1.getText().isEmpty())?0: Integer.parseInt(txtId1.getText());
        
        fact.setCuit(txtCuit.getText());
+       fact.setCuit(txtNombre.getText());
+       fact.setCuit(txtApellido.getText());
        
        return fact;
        
@@ -579,7 +614,7 @@ public class PantallaPrincipal extends javax.swing.JFrame {
         });
         
     }
-
+ 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregarDetalle;
@@ -596,6 +631,8 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -604,10 +641,12 @@ public class PantallaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTable jTable2;
     private javax.swing.JTable tablaFact;
     private javax.swing.JTable tablaFactDetalle;
+    private javax.swing.JTextField txtApellido;
     private javax.swing.JTextField txtCantidad;
     private javax.swing.JTextField txtCuit;
     private javax.swing.JTextField txtId1;
     private javax.swing.JTextField txtIdProducto;
+    private javax.swing.JTextField txtNombre;
     private javax.swing.JTextField txtProducto;
     // End of variables declaration//GEN-END:variables
 }

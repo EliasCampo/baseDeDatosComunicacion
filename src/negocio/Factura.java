@@ -8,13 +8,29 @@ import datos.ConexionBase;
 import javax.swing.table.DefaultTableModel;
 import java.sql.ResultSet;
 /**
- *
+ * 
  * @author Elias Campo
  */
 
 public class Factura {
     int id, cantidad;
-    String cuit, producto;
+    String cuit, producto, nombre, apellido;
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public void setApellido(String apellido) {
+        this.apellido = apellido;
+    }
     
     
     public int getId() {
@@ -48,19 +64,19 @@ public class Factura {
     
     
     
-    public void botonAgregar (int opcion, String cuit, String producto, int cantidad, int id) {                                           
+    public void botonAgregar (int opcion, String cuit, String producto, int cantidad, int id, String nombre, String apellido) {                                           
        ConexionBase objConexionBase= new ConexionBase();
        
        
        switch (opcion){
            case 1:
                
-            String StrSentenciaInsert = String.format("INSERT INTO Factura (cuit) "
-               + "VALUES ('%s')", cuit);
+            String StrSentenciaInsert = String.format("INSERT INTO Factura (cuit, nombre, apellido) "
+               + "VALUES ('%s', '%s', '%s')", cuit, nombre, apellido);
        
             objConexionBase.ejecutarSentenciaSQL (StrSentenciaInsert);// ejecutar la instruccion de insercion
             break;
-       
+        
            case 2: 
                int ultimoId = objConexionBase.buscarUltimoId();
                 StrSentenciaInsert = String.format("INSERT INTO FacturaDetalle (idFactura, producto, cantidad) "
@@ -102,14 +118,14 @@ public class Factura {
 
     }
     
-    public void Editar (int id, String cuit, int idProducto, String producto, int cantidad, int opcion){
+    public void Editar (int id, String cuit, String nombre, String apellido, int idProducto, String producto, int cantidad, int opcion){
 
         ConexionBase objConexionBase= new ConexionBase();
         
         switch (opcion){
             case 1:
-                String StrSentenciaInsert = String.format("UPDATE Factura SET cuit='%s'"
-               + "WHERE id= %d", cuit, id);
+                String StrSentenciaInsert = String.format("UPDATE Factura SET cuit='%s', nombre='%s', apellido='%s'"
+               + "WHERE id= %d", cuit, nombre, apellido, id);
        
                 objConexionBase.ejecutarSentenciaSQL (StrSentenciaInsert);
                 break;
@@ -134,7 +150,7 @@ public class Factura {
         
         switch (opcion) {
             case 1: 
-                String[] titulos ={"id", "cuit"};
+                String[] titulos ={"id", "cuit", "nombre", "apellido"};
                 modelo=new DefaultTableModel(null, titulos);
 
                 while(modelo.getRowCount()>0){
@@ -146,8 +162,10 @@ public class Factura {
 
                     while (resultado.next()) {
 
-                        Object[] oUsuario={resultado.getString("id"),
-                                            resultado.getString("cuit") };
+                        Object[] oUsuario={ resultado.getString("id"),
+                                            resultado.getString("cuit"),
+                                            resultado.getString("nombre"),
+                                            resultado.getString("apellido")};
                         modelo.addRow(oUsuario);
 
                     }
